@@ -1,4 +1,4 @@
-class StringOps
+class StringOps2
   def to_upper(string)
     string.upcase
   end
