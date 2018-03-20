@@ -1,5 +1,6 @@
 require 'simplecov'
 require 'simplecov-rcov'
+require 'simplecov-cobertura'
 
 SimpleCov.formatters = [
   SimpleCov::Formatter::HTMLFormatter,
