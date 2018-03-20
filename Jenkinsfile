@@ -53,7 +53,7 @@ pipeline {
                     $class: 'RcovPublisher',
                     reportDir: "coverage/rcov",
                     targets: [
-                            [metric: "CODE_COVERAGE", healthy: 75, unhealthy: 50, unstable: 30]
+                            [metric: "CODE_COVERAGE", healthy: 99, unhealthy: 95, unstable: 30]
                     ]
             ])
         }
