@@ -56,6 +56,19 @@ pipeline {
                             [metric: "CODE_COVERAGE", healthy: 99, unhealthy: 95, unstable: 30]
                     ]
             ])
+
+            //Add Cobertura publisher
+            step([$class: 'CoberturaPublisher',
+                  autoUpdateHealth: false,
+                  autoUpdateStability: false,
+                  coberturaReportFile: '**/coverage.xml',
+                  failUnhealthy: false,
+                  failUnstable: false,
+                  maxNumberOfBuilds: 0,
+                  onlyStable: false,
+                  sourceEncoding: 'ASCII',
+                  zoomCoverageChart: false])
+
         }
     }
 
