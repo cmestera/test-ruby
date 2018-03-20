@@ -1,0 +1,6 @@
+pkg
+.bundle
+spec/tmp
+Gemfile.lock
+.rspec
+coverage
