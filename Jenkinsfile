@@ -38,30 +38,12 @@ pipeline {
 
     post {
         success {
-            //Publish code coverage results
-            publishHTML(
-                    [allowMissing: false,
-                     alwaysLinkToLastBuild: false,
-                     keepAll: true,
-                     reportDir: 'coverage',
-                     reportFiles: 'index.html',
-                     reportName: 'Simplecov Report',
-                     reportTitles: ''])
-
-            //Publish Ruby Metrics rcov results
-            step([
-                    $class: 'RcovPublisher',
-                    reportDir: "coverage/rcov",
-                    targets: [
-                            [metric: "CODE_COVERAGE", healthy: 99, unhealthy: 95, unstable: 30]
-                    ]
-            ])
 
             //Add Cobertura publisher
             step([$class: 'CoberturaPublisher',
                   autoUpdateHealth: false,
                   autoUpdateStability: false,
-                  coberturaReportFile: '**/coverage.xml',
+                  coberturaReportFile: 'coverage/coverage.xml',
                   failUnhealthy: false,
                   failUnstable: false,
                   maxNumberOfBuilds: 0,
