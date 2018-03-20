@@ -40,6 +40,15 @@ pipeline {
                          reportFiles: 'index.html',
                          reportName: 'Simplecov Report',
                          reportTitles: ''])
+
+
+                step([
+                        $class: 'RcovPublisher',
+                        reportDir: "coverage/rcov",
+                        targets: [
+                                [metric: "CODE_COVERAGE", healthy: 75, unhealthy: 50, unstable: 30]
+                        ]
+                ])
             }
         }
 
