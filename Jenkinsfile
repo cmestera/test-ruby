@@ -31,27 +31,32 @@ pipeline {
                 //Archive the built artifacts
                 archive (includes: 'pkg/*.gem')
 
-                //Publish code coverage results
-                publishHTML(
-                        [allowMissing: false,
-                         alwaysLinkToLastBuild: false,
-                         keepAll: true,
-                         reportDir: 'coverage',
-                         reportFiles: 'index.html',
-                         reportName: 'Simplecov Report',
-                         reportTitles: ''])
-
-
-                step([
-                        $class: 'RcovPublisher',
-                        reportDir: "coverage/rcov",
-                        targets: [
-                                [metric: "CODE_COVERAGE", healthy: 75, unhealthy: 50, unstable: 30]
-                        ]
-                ])
             }
         }
 
+    }
+
+    post {
+        success {
+            //Publish code coverage results
+            publishHTML(
+                    [allowMissing: false,
+                     alwaysLinkToLastBuild: false,
+                     keepAll: true,
+                     reportDir: 'coverage',
+                     reportFiles: 'index.html',
+                     reportName: 'Simplecov Report',
+                     reportTitles: ''])
+
+            //Publish Ruby Metrics rcov results
+            step([
+                    $class: 'RcovPublisher',
+                    reportDir: "coverage/rcov",
+                    targets: [
+                            [metric: "CODE_COVERAGE", healthy: 75, unhealthy: 50, unstable: 30]
+                    ]
+            ])
+        }
     }
 
 }
